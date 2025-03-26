@@ -1,15 +1,10 @@
 import * as React from "react";
 
 import { IconSvgProps } from "@/types";
-import {Image} from "@heroui/react";
 
-export const Logo: React.FC<IconSvgProps> = ({
-  size = 36,
-  height,
-  ...props
-}) => (
-    <Image
-        alt="HeroUI hero Image"
+export const Logo: React.FC<IconSvgProps> = () => (
+    <img
+        alt="SolRoulette Logo"
         src="/images/lg1.png"
         width={55}
     />
