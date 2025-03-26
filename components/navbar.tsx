@@ -1,18 +1,5 @@
-import {
-  Navbar as HeroUINavbar,
-  NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
-  NavbarBrand,
-  NavbarItem,
-  NavbarMenuItem,
-} from "@heroui/navbar";
-import { Button } from "@heroui/button";
-import { Link } from "@heroui/link";
-import { link as linkStyles } from "@heroui/theme";
+import React, { useState } from "react";
 import NextLink from "next/link";
-import clsx from "clsx";
-
 import { siteConfig } from "@/config/site";
 import {
   TwitterIcon,
@@ -23,82 +10,73 @@ import {
 } from "@/components/icons";
 
 export const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="w-full bg-[#0A0A0A]/70 backdrop-blur-sm border-b border-[#1A1A1A]">
-      <HeroUINavbar 
-        maxWidth="xl" 
-        position="sticky"
-        classNames={{
-          wrapper: "bg-transparent",
-          base: "h-16",
-        }}
-      >
-        <NavbarContent className="flex-1" justify="start">
-          <NavbarBrand className="gap-3 max-w-fit">
-            <NextLink className="flex justify-start items-center gap-1" href="/">
-              <Logo />
-              <p className="font-bold text-white">PayDexBro</p>
-            </NextLink>
-          </NavbarBrand>
-          <div className="hidden lg:flex gap-4 justify-start ml-2">
+      <nav className="flex items-center justify-between px-4 py-3 max-w-screen-xl mx-auto h-16">
+        <div className="flex items-center">
+          <NextLink className="flex justify-start items-center gap-1" href="/">
+            <Logo />
+            <p className="font-bold text-white">SolRoulette</p>
+          </NextLink>
+          
+          <div className="hidden lg:flex gap-4 justify-start ml-6">
             {siteConfig.navItems.map((item) => (
-              <NavbarItem key={item.href}>
+              <div key={item.href}>
                 <NextLink
-                  className={clsx(
-                    linkStyles({ color: "foreground" }),
-                    "data-[active=true]:text-[#8B5CF6] data-[active=true]:font-medium text-sm text-[#A1A1AA] hover:text-white transition-colors"
-                  )}
-                  color="foreground"
+                  className="text-sm text-[#A1A1AA] hover:text-white transition-colors"
                   href={item.href}
                 >
                   {item.label}
                 </NextLink>
-              </NavbarItem>
+              </div>
             ))}
           </div>
-        </NavbarContent>
+        </div>
 
-        <NavbarContent
-          className="hidden sm:flex flex-1"
-          justify="end"
+        <div className="hidden sm:flex items-center gap-2">
+          <a href={siteConfig.links.twitter} title="Twitter" target="_blank" rel="noopener noreferrer">
+            <TwitterIcon className="text-[#71717A] hover:text-white transition-colors" />
+          </a>
+          <a href={siteConfig.links.discord} title="Discord" target="_blank" rel="noopener noreferrer">
+            <DiscordIcon className="text-[#71717A] hover:text-white transition-colors" />
+          </a>
+          <a href={siteConfig.links.telegram} title="Telegram" target="_blank" rel="noopener noreferrer">
+            <TelegramIcon className="text-[#71717A] hover:text-white transition-colors" />
+          </a>
+          <a href={siteConfig.links.github} title="GitHub" target="_blank" rel="noopener noreferrer">
+            <GithubIcon className="text-[#71717A] hover:text-white transition-colors" />
+          </a>
+        </div>
+
+        <button 
+          className="sm:hidden" 
+          onClick={() => setMenuOpen(!menuOpen)}
         >
-          <NavbarItem className="hidden sm:flex gap-2">
-            <Link isExternal href={siteConfig.links.twitter} title="Twitter">
-              <TwitterIcon className="text-[#71717A] hover:text-white transition-colors" />
-            </Link>
-            <Link isExternal href={siteConfig.links.discord} title="Discord">
-              <DiscordIcon className="text-[#71717A] hover:text-white transition-colors" />
-            </Link>
-            <Link isExternal href={siteConfig.links.telegram} title="Telegram">
-              <TelegramIcon className="text-[#71717A] hover:text-white transition-colors" />
-            </Link>
-            <Link isExternal href={siteConfig.links.github} title="GitHub">
-              <GithubIcon className="text-[#71717A] hover:text-white transition-colors" />
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      </nav>
 
-        <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-          <NavbarMenuToggle />
-        </NavbarContent>
-
-        <NavbarMenu className="bg-[#0A0A0A] border-t border-[#1A1A1A]">
-          <div className="mx-4 mt-2 flex flex-col gap-2">
+      {menuOpen && (
+        <div className="sm:hidden bg-[#0A0A0A] border-t border-[#1A1A1A] px-4 py-2">
+          <div className="flex flex-col gap-2">
             {siteConfig.navMenuItems.map((item, index) => (
-              <NavbarMenuItem key={`${item}-${index}`}>
-                <Link
-                  color="foreground"
+              <div key={`${item.label}-${index}`}>
+                <NextLink
                   href={item.href}
-                  size="lg"
                   className="text-sm text-[#A1A1AA] hover:text-white transition-colors"
+                  onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
-                </Link>
-              </NavbarMenuItem>
+                </NextLink>
+              </div>
             ))}
           </div>
-        </NavbarMenu>
-      </HeroUINavbar>
+        </div>
+      )}
     </div>
   );
 };
