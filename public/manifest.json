@@ -1,0 +1,15 @@
+{
+  "name": "Solantics",
+  "short_name": "Solantics",
+  "icons": [
+    {
+      "src": "/solantics-favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#6366F1",
+  "background_color": "#0f0f12",
+  "start_url": "/",
+  "display": "standalone"
+} 

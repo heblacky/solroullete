@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  --glass-background: rgba(17, 25, 40, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  @apply bg-black text-white;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.2) 0%, transparent 50%);
+  background-attachment: fixed;
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.glassmorphism {
+  background: var(--glass-background);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.search-bar {
+  @apply w-full max-w-3xl mx-auto glassmorphism p-2 transition-all duration-300;
+}
+
+.search-bar:focus-within {
+  @apply ring-2 ring-purple-500 shadow-lg shadow-purple-500/20;
+}
+
+.connect-wallet-btn {
+  @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 
+  text-white font-medium py-2 px-4 rounded-lg hover:shadow-lg 
+  transition-all duration-300 transform hover:scale-105;
+}
+
+.info-card {
+  @apply glassmorphism p-6 m-4 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20;
+}
+
+.animated-bg {
+  @apply absolute inset-0 -z-10 h-full w-full;
+  background-image: 
+    linear-gradient(to bottom right, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1)),
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.2), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.2), transparent 40%);
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+
+/* For the animated charts and infographics */
+.infographic-container {
+  @apply glassmorphism p-4 relative overflow-hidden;
+}
+
+/* Navigation styles */
+.navbar {
+  @apply glassmorphism z-10 sticky top-4 mx-4 mb-4 px-4 py-2;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    @apply mx-2 px-2 py-1;
+  }
+  
+  .search-bar {
+    @apply max-w-full mx-2;
+  }
+}
